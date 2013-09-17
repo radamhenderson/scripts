@@ -2,9 +2,13 @@
 
 
 cat /etc/issue | grep Fedora
-if [ $? -eq 0 ]
+fedora=$?
+cat /etc/issue | grep CentOS
+centos=$?
+
+if [ $fedora -eq 0 ]
 then
-  release=`cat /etc/issue | grep Fedora | awk {'{split($0, a, " "); print a[3]}'`
+  release=`cat /etc/issue | grep Fedora | awk {'{split($0, a, " "); print a[3]}'}`
 
   if [ $release -eq 17 ]
   then
@@ -17,6 +21,16 @@ then
     rpm -ivh http://yum.puppetlabs.com/fedora/f19/products/i386/puppetlabs-release-19-2.noarch.rpm
   fi
 
+elif [ $centos -eq 0 ]
+then
+
+  release=`cat /etc/issue | grep CentOS | awk {'{split($0, a, " "); print a[3]}'}`
+  if  [ $release -gt 5 ]
+  then 
+    rpm -ivh http://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-7.noarch.rpm
+  else 
+    rpm -ivh http://yum.puppetlabs.com/el/5/products/i386/puppetlabs-release-5-7.noarch.rpm
+  fi
 
 else
 
@@ -40,3 +54,4 @@ else
   echo ub
   fi
 fi
+
