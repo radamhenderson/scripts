@@ -25,7 +25,7 @@ elif [ $centos -eq 0 ]
 then
 
   release=`cat /etc/issue | grep CentOS | awk {'{split($0, a, " "); print a[3]}'}`
-  if  [ $release -gt 5 ]
+  if  [ $release > 5 ]
   then 
     rpm -ivh http://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-7.noarch.rpm
   else 
